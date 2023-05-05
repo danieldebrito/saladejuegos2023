@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+
+@font-face {
+    font-family: 'Alegreya';
+    src: url('./assets/fonts/AlegreyaSans/AlegreyaSans-Medium.ttf');
+}
+
+/* BACKGROUDNS */
+.bg-orange {
+    background-color: #dd6e42;
+}
+
+.bg-yellow {
+    background-color: #e8dab2;
+}
+
+.bg-blue {
+    background-color: #4f6d7a;
+}
+
+.bg-sky-blue {
+    background-color: #c0d6df;
+}
+
+.bg-grey {
+    background-color: #eaeaea;
+}
