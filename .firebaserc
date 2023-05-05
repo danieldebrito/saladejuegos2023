@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "saladejuegos-9c63e"
+  },
+  "targets": {
+    "saladejuegos-9c63e": {
+      "hosting": {
+        "saladejuegos2023": [
+          "saladejuegos-9c63e"
+        ]
+      }
+    }
+  }
+}
