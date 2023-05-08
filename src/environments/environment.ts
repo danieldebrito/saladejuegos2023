@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  production: false,
   firebase: {
     projectId: 'saladejuegos-9c63e',
     appId: '1:1079705165150:web:dfd7dc849fbde0454883cf',
@@ -11,7 +12,6 @@ export const environment = {
     authDomain: 'saladejuegos-9c63e.firebaseapp.com',
     messagingSenderId: '1079705165150',
   },
-
 };
 /*
  * For easier debugging in development mode, you can import the following file

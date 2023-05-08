@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  selector: 'app-sign-in',
+  templateUrl: './sign-in.component.html',
+  styleUrls: ['./sign-in.component.scss']
 })
-export class NavbarComponent {
+export class SignInComponent {
+
   constructor(public authService: AuthService){}
+
 }

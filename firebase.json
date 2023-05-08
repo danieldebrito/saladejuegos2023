@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/saladejuegos2023",
+    "public": "y",
     "ignore": [
       "firebase.json",
       "**/.*",

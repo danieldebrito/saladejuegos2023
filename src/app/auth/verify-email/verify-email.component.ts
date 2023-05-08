@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  selector: 'app-verify-email',
+  templateUrl: './verify-email.component.html',
+  styleUrls: ['./verify-email.component.scss']
 })
-export class NavbarComponent {
+export class VerifyEmailComponent {
   constructor(public authService: AuthService){}
 }

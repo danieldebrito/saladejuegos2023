@@ -32,14 +32,34 @@
           </ul>
         </li>
       </ul>
+      
+      <ul class="nav navbar-nav navbar-right" *ngIf="authService.userData as user; else login">
+        <li class="nav-item">
+          <a class="nav-link"></a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ authService.userData.email }}
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" (click)="authService.SignOut()">Sign Out</a></li>
+          </ul>
+        </li>
+
+      </ul>
+
+      <ng-template #login>
       <ul class="nav navbar-nav navbar-right">
         <li class="nav-item">
-          <a class="nav-link" href="/auth/login">Ingresá</a>
+          <a class="nav-link" href="/sign-in">Ingresá</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link btn btn-success" routerLink="/registro">Creá tu cuenta</a>
+          <a class="nav-link btn btn-success" href="/sign-up">Creá tu cuenta</a>
         </li>
       </ul>
+      </ng-template>
+      
     </div>
   </div>
 </nav>
