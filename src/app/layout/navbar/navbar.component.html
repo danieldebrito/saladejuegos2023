@@ -14,32 +14,41 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/home">Inicio</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="/about">¿Quien Soy?</a>
-        </li>
+
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
             Juegos
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Ahorcado</a></li>
-            <li><a class="dropdown-item" href="#">Mayor o Menor</a></li>
-            <li><a class="dropdown-item" href="#">Preguntados</a></li>
+            <li><a class="dropdown-item" href="games/ahorcado">Ahorcado</a></li>
+            <li><a class="dropdown-item" href="games/mayormenor">Mayor o Menor</a></li>
+            <li><a class="dropdown-item" href="games/preguntados">Preguntados</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
             <li><a class="dropdown-item" href="#">Puntuacion</a></li>
           </ul>
         </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="chat" target="_blank">Chat</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="assets/files/consigna.pdf" target="_blank">Consigna TP</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/about">¿Quien Soy?</a>
+        </li>
       </ul>
-      
+
       <ul class="nav navbar-nav navbar-right" *ngIf="authService.userData as user; else login">
         <li class="nav-item">
           <a class="nav-link"></a>
         </li>
 
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
             {{ authService.userData.email }}
           </a>
           <ul class="dropdown-menu">
@@ -50,16 +59,16 @@
       </ul>
 
       <ng-template #login>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="nav-item">
-          <a class="nav-link" href="/sign-in">Ingresá</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link btn btn-success" href="/sign-up">Creá tu cuenta</a>
-        </li>
-      </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="nav-item">
+            <a class="nav-link" href="/sign-in">Ingresá</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-success" href="/sign-up">Creá tu cuenta</a>
+          </li>
+        </ul>
       </ng-template>
-      
+
     </div>
   </div>
 </nav>
