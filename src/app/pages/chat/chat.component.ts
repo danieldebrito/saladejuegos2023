@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Mensaje } from 'src/app/class/mensaje';
-import { User } from 'src/app/class/user';
+import { User } from 'src/app/class/User';
 import { ChatService } from 'src/app/services/chat.service';
 
 @Component({
@@ -21,10 +21,10 @@ export class ChatComponent implements OnInit {
 
   public getMessengers() {
     this.chatSv.getItems().subscribe(res => {
-      this.messengers = res.slice(0, 12);
+      this.messengers = res; // = res.slice(0, 6);
     });
   }
-  
+
 
   private getCurretUser() {
     this.afAuth.authState.subscribe(user => {

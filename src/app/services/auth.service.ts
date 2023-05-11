@@ -1,12 +1,12 @@
 import { Injectable, NgZone } from '@angular/core';
-import { User } from 'src/app/class/user';
+import { User } from 'src/app/class/User';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 
-
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import * as auth from 'firebase/auth';
-import { collection, collectionData, doc, Firestore, setDoc, updateDoc } from '@angular/fire/firestore';
+import { collection, collectionData, doc, Firestore, getDoc, setDoc, updateDoc } from '@angular/fire/firestore';
+
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,7 @@ export class AuthService {
     public router: Router,
     public ngZone: NgZone // NgZone service to remove outside scope warning
   ) {
-    /* Saving user data in localstorage when 
+    /* Saving user data in localstorage when
     logged in and setting up null when logged out */
     this.afAuth.authState.subscribe((user) => {
       if (user) {
@@ -58,7 +58,7 @@ export class AuthService {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        /* Call the SendVerificaitonMail() function when new user sign 
+        /* Call the SendVerificaitonMail() function when new user sign
         up and returns promise */
         this.SendVerificationMail();
 
@@ -119,25 +119,28 @@ export class AuthService {
       this.router.navigate(['sign-in']);
     });
   }
-  /*Setting up user data when sign in with username/password, 
-  sign up with username/password and sign in with social auth  
+  /*Setting up user data when sign in with username/password,
+  sign up with username/password and sign in with social auth
   provider in Firestore database */
-  SetUserData(user: any) {
+  async SetUserData(user: any) {
     const col = collection(this.afs, 'usuarios');
-    const newDoc = doc(col);
+    const userDoc = await getDoc(doc(col, user.uid));
 
-    const userData: User = {
-      uid: user.uid,
-      id: newDoc.id,
-      email: user.email,
-      //password: user.password,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      emailVerified: user.emailVerified,
-    };
+    if (userDoc.exists()) {
+      console.log('El usuario ya está registrado');
+    } else {
+      const userData: User = {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        emailVerified: user.emailVerified,
+      };
 
-    setDoc(newDoc, userData)
+      setDoc(doc(col, user.uid), userData);
+    }
   }
+
   UpdateUserData(pass: string, user: any) {
     const col = collection(this.afs, 'usuarios');
     const allItems = collectionData(col);
@@ -166,4 +169,5 @@ export class AuthService {
       updateDoc(documento, userData);
     });
   }
+
 }

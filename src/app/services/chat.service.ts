@@ -42,7 +42,7 @@ export class ChatService {
       }),
       catchError(err => {
         console.error('Error obteniendo el documento:', err);
-        return throwError(err);
+        return throwError(() => err);
       })
     );
     return observable;
