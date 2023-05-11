@@ -1,5 +1,8 @@
 import { Injectable, NgZone } from '@angular/core';
-import { User } from 'src/app/class/User';
+
+import { User } from 'src/app/class/user';
+import { UserLog } from 'src/app/class/userLog'; 
+
 import { Router } from '@angular/router';
 import { catchError, map, take } from 'rxjs/operators';
 
@@ -7,18 +10,18 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import * as auth from 'firebase/auth';
 import { collection, collectionData, doc, docData, Firestore, getDoc, setDoc, updateDoc } from '@angular/fire/firestore';
 import { Observable, throwError } from 'rxjs';
+import { LogUserService } from './log-user.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
   userData: any; // Save logged in user data
   public allUsers: User[] = [];
 
-
   constructor(
+    private logUserSv: LogUserService,
     public afs: Firestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
@@ -42,8 +45,8 @@ export class AuthService {
   SignIn(email: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
-      .then((result) => {
-        this.UpdateUserData(password, result.user);
+      .then((res) => {
+        this.UpdateUserData(password, res.user);
         this.afAuth.authState.subscribe((user) => {
           if (user) {
             this.router.navigate(['home']);
@@ -54,6 +57,9 @@ export class AuthService {
         console.log(error.message);
       });
   }
+
+
+
   // Sign up with email/password
   SignUp(email: string, password: string) {
     return this.afAuth
@@ -107,6 +113,8 @@ export class AuthService {
         this.router.navigate(['home']);
 
         this.SetUserData(result.user);
+        this.cargarLog(result.user);  /// cargo el log
+
         console.log(result.user);
       })
       .catch((error) => {
@@ -185,5 +193,12 @@ export class AuthService {
       })
     );
     return observable;
+  }
+
+  private cargarLog(user: any){
+    let userLog: UserLog = {};
+    userLog.fechaIngreso = new Date().getTime();
+    userLog.uid = user.uid;
+    this.logUserSv.addItem(userLog);
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Mensaje } from 'src/app/class/mensaje';
-import { User } from 'src/app/class/User';
+import { User } from 'src/app/class/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
 
@@ -27,7 +27,6 @@ export class ChatComponent implements OnInit {
     });
   }
 
-
   private getCurretUser() {
     this.afAuth.authState.subscribe(user => {
       if (user) {
@@ -40,10 +39,8 @@ export class ChatComponent implements OnInit {
   /////////////////////////////////////////////////////////////////////////////
   public getUserById(id: string){
     this.authSv.getUserByID(id).subscribe( res => {
-
     } );
   }
-
 
   public saveMensaje(msg: string){
     this.messenger.fecha = new Date().getTime();
