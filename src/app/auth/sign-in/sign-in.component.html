@@ -8,19 +8,69 @@
         <div class="authBlock">
           <h3 class="center">Sign In</h3>
 
-          <div class="formGroup mt-2">
-            <input type="text" class="form-control" placeholder="Username" aria-label="userName" #userName required>
-          </div>
-          <div class="formGroup mt-2">
-            <input type="password" class="form-control" placeholder="Password" aria-label="userPassword" #userPassword
-              required>
-          </div>
+          <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
 
-          <!-- Calling SignIn Api from AuthService -->
+            <div class="formGroup mt-2">
+
+              <div class="input-group mb-3">
+                <label class="visually-hidden" for="autoSizingInputGroup">e-mail</label>
+                <div class="input-group">
+                  <div class="input-group-text"><i class="fa fa-user"></i></div>
+                  <input type="text" class="form-control" value="" formControlName="email" (click)="errorFalse()"
+                    placeholder="email" />
+                </div>
+              </div>
+
+
+            </div>
+            <div *ngIf="mostrarPass">
+
+              <div class="input-group mb-2">
+                <label class="visually-hidden" for="autoSizingInputGroup">Contraseña</label>
+                <div class="input-group">
+                  <div class="input-group-text"><i class="fa fa-key"></i></div>
+                  <input type="text" class="form-control" formControlName="password" (click)="errorFalse()"
+                    placeholder="contraseña" />
+                </div>
+              </div>
+
+              <a class=" pass ml-2" (click)="verOcultarPass()"> <i class="fa fa-eye-slash"></i> &nbsp;
+                Ocultar
+                Contraseña</a>
+            </div>
+
+            <div *ngIf="!mostrarPass">
+
+              <div class="input-group mb-2">
+                <label class="visually-hidden" for="autoSizingInputGroup">Contraseña</label>
+                <div class="input-group">
+                  <div class="input-group-text"><i class="fa fa-key"></i></div>
+                  <input type="password" class="form-control" formControlName="password" (click)="errorFalse()"
+                    placeholder="contraseña" />
+                </div>
+              </div>
+
+              <a class=" pass ml-2" (click)="verOcultarPass()"> <i class="fa fa-eye"></i> &nbsp;
+                Ver Contraseña</a>
+            </div>
+
+
+            <div class="alert alert-danger" role="alert" *ngIf="error">
+              Usuario o Contraseña Incorrecta
+            </div>
+
+            <!-- Calling SignIn Api from AuthService -->
+            <div class="formGroup mt-2">
+              <button class="w-100 btn btn-lg btn-primary" [disabled]="!loginForm.valid">Ingresá</button>
+            </div>
+
+          </form>
+
           <div class="formGroup mt-2">
-            <button class="w-100 btn btn-lg btn-primary"
-              (click)="authService.SignIn(userName.value, userPassword.value)" type="submit">Sign in
+            <button class="w-100 btn btn-lg btn-info" (click)="AutoSignIn()" type="submit">
+              Acceso Rápido
             </button>
+
           </div>
 
           <!-- Calling GoogleAuth Api from AuthService -->
@@ -28,8 +78,9 @@
             <button class="w-100 btn btn-lg btn-danger" (click)="authService.GoogleAuth()" type="submit">
               Log in with Google
             </button>
-
           </div>
+
+
 
           <div class="forgotPassword">
             <p><a routerLink="/forgot-password"
