@@ -1,21 +1,76 @@
-<!--
-    <h1>Chat</h1>
+<div class="container">
+    <main class="content">
+        <div class="container p-0">
+    
+            <h1 class="h3 mb-3">Messages</h1>
+    
+            <div class="card">
+                <div class="row g-0">
+    
+                    <div class="col-12 ">
+                        <div class="py-2 px-4 border-bottom d-none d-lg-block">
+                            <div class="d-flex align-items-center py-1">
+                                <div class="position-relative">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                        class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
+                                </div>
+                                <div class="flex-grow-1 pl-3">
+                                    <strong>Sharon Lessman</strong>
+                                    <div class="text-muted small"><em>Typing...</em></div>
+                                </div>
+                            </div>
+                        </div>
 
-<hr>
+                        <div class="position-relative">
+                            <div class="chat-messages p-4">
 
-<div class="app-mensajes" id="app-mensajes">
+                                <div *ngFor="let item of messengers" >
 
-    <div *ngFor="let chat of chatService.chats" [ngClass]="{ 'text-right': chatService.usuario.uid == chat.uid }">
-        <span class="badge" [ngClass]="{ 'badge-primary': chatService.usuario.uid == chat.uid, 
-                                         'badge-success': chatService.usuario.uid != chat.uid }">
-            {{ chat.nombre }}
-        </span>
-        <p>
-            {{ chat.mensaje }}
-        </p>
-    </div>
+                                <div *ngIf="userLogged.uid == item.uid">
+                                    <div class="chat-message-right pb-4">
+                                        <div>
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                                class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
+                                            <div class="text-muted small text-nowrap mt-2">2:33 am</div>
+                                        </div>
+                                        <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                            <div class="font-weight-bold mb-1">Tú</div>
+                                            {{ item.mensaje }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="userLogged.uid != item.uid">
+                                    <div class="chat-message-left pb-4">
+                                        <div>
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                                class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
+                                            <div class="text-muted small text-nowrap mt-2">2:34 am</div>
+                                        </div>
+                                        <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
+                                            <div class="font-weight-bold mb-1"> {{ item.displayName }}</div>
+                                            {{ item.mensaje }}
+                                        </div>
+                                    </div>
+                                </div>
 
+                            </div>
+
+                            </div>
+                        </div>
+
+                        <div class="flex-grow-0 py-3 px-4 border-top">
+                            <div class="input-group">
+                                <input class="form-control" type="text" (keyup.enter)="saveMensaje(mensage.value)"
+                                    #mensage placeholder="Escribe tu Mensaje">
+                                <button class="btn btn-primary" (click)="saveMensaje(mensage.value)">Enviar</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 </div>
 
-<input class="form-control" type="text" name="mensaje" [(ngModel)]="mensaje" (keyup.enter)="enviar_mensaje()" placeholder="Enviar Mensaje">
--->
+
