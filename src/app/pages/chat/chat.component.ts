@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Mensaje } from 'src/app/class/mensaje';
 import { User } from 'src/app/class/User';
+import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
 
 @Component({
@@ -17,7 +18,8 @@ export class ChatComponent implements OnInit {
 
   constructor(
     private afAuth: AngularFireAuth,
-    private chatSv: ChatService) { }
+    private chatSv: ChatService,
+    private authSv: AuthService) { }
 
   public getMessengers() {
     this.chatSv.getItems().subscribe(res => {
@@ -34,6 +36,12 @@ export class ChatComponent implements OnInit {
         this.userLogged.uid = '';
       }
     });
+  }
+  /////////////////////////////////////////////////////////////////////////////
+  public getUserById(id: string){
+    this.authSv.getUserByID(id).subscribe( res => {
+
+    } );
   }
 
 

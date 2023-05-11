@@ -1,11 +1,12 @@
 import { Injectable, NgZone } from '@angular/core';
 import { User } from 'src/app/class/User';
 import { Router } from '@angular/router';
-import { take } from 'rxjs/operators';
+import { catchError, map, take } from 'rxjs/operators';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import * as auth from 'firebase/auth';
-import { collection, collectionData, doc, Firestore, getDoc, setDoc, updateDoc } from '@angular/fire/firestore';
+import { collection, collectionData, doc, docData, Firestore, getDoc, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Observable, throwError } from 'rxjs';
 
 
 @Injectable({
@@ -170,4 +171,19 @@ export class AuthService {
     });
   }
 
+  public getUserByID(id: string): Observable<User> {
+    const col = collection(this.afs, 'usuarios');
+    const documento = doc(col, id);
+
+    const observable = docData(documento).pipe(
+      map(res => {
+        return res as User;
+      }),
+      catchError(err => {
+        console.error('Error obteniendo el documento:', err);
+        return throwError(() => err);
+      })
+    );
+    return observable;
+  }
 }
