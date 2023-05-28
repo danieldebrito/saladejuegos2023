@@ -13,13 +13,11 @@ export class AhorcadoComponent implements OnInit {
 
   public palabraTipeada: string = '------';
   public palabraTipeadaArray: string[] = ['-', '-', '-', '-', '-', '-'];
-
   public letraTipeada: string = '';
 
   public mostrarPalabra = false;
   public cantIntentos = 5;
-
-  public mensaje = 'Te Quedan : ';
+  public esGanador = false;
 
   constructor(private palabrasSv: PalabrasService) { }
 
@@ -36,9 +34,7 @@ export class AhorcadoComponent implements OnInit {
   }
 
   public checkLetra() {
-
     let flag = true;
-
     for (let index = 0; index < this.palabraArray.length; index++) {
       if (this.palabraArray[index].toLowerCase() == this.letraTipeada.toLowerCase()) {
         this.palabraTipeadaArray[index] = this.letraTipeada;
@@ -51,7 +47,7 @@ export class AhorcadoComponent implements OnInit {
     }
 
     this.palabraTipeada = this.arrayToPalabra(this.palabraTipeadaArray);
-    this.MostrarPalabra(5);
+    this.checkGanador(this.palabraTipeadaArray);
   }
 
   public arrayToPalabra(palabra: string[]) {
@@ -62,9 +58,9 @@ export class AhorcadoComponent implements OnInit {
     return ret;
   }
 
-  public MostrarPalabra(intentos: number) {
-    if (this.cantIntentos == intentos) {
-      this.mostrarPalabra = true;
+  public checkGanador(array: string[]) {
+    if (!array.find(ar => ar == '-')) {
+      this.esGanador = true;
     }
   }
 
