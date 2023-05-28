@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Naipe } from 'src/app/class/naipe';
 import { NaipesService } from 'src/app/services/naipes.service';
 
 @Component({
@@ -8,26 +9,61 @@ import { NaipesService } from 'src/app/services/naipes.service';
 })
 export class MayormenorComponent implements OnInit {
 
-  public naipes: any[] = [];
-  public cartaAleatoria: any = {};
+  public naipes: Naipe[] = [];
 
-  constructor(private naipesSv: NaipesService) { }
+  cartaAleatoria: Naipe = {};
+  cartaAleatoriaAnterior: Naipe = {};
 
-  public getNaipes() {
-    this.naipesSv.obtenerCartas().subscribe((cartas: any[]) => {
-      this.naipes = cartas;
-      this. obtenerCartaAleatoria();
-    });
-  }
+  indiceActual: number = 0;
 
-  public obtenerCartaAleatoria() {
-    if (this.naipes) {
-      const indiceAleatorio = Math.floor(Math.random() * this.naipes.length);
-      this.cartaAleatoria = this.naipes[indiceAleatorio];
+  public mensaje: string = '';
+
+  constructor(private cnaipesSv: NaipesService) { }
+
+  obtenerNaipeAleatorio() {
+    if (this.naipes && this.indiceActual < this.naipes.length) {
+      this.cartaAleatoria = this.naipes[this.indiceActual];
+      this.indiceActual++;
     }
   }
 
-  ngOnInit(): void {
-    this.getNaipes();
+  public obtenerTodosLosNaipesAleatorios() {
+    this.cnaipesSv.obtenernaipesAleatorias().subscribe((naipes: Naipe[]) => {
+      this.naipes = naipes;
+      this.indiceActual = 0;
+
+      this.obtenerNaipeAleatorio();
+    });
+  }
+
+  public checkJugada(jugada: string) {
+
+    let resultado: string = '';
+
+    this.cartaAleatoriaAnterior = this.cartaAleatoria;
+
+    if (this.naipes && this.indiceActual < this.naipes.length) {
+      this.cartaAleatoria = this.naipes[this.indiceActual];
+      this.indiceActual++;
+
+
+
+      if ((this.cartaAleatoriaAnterior.valor !== undefined && this.cartaAleatoria.valor !== undefined) && (this.cartaAleatoriaAnterior.valor > this.cartaAleatoria.valor)) {
+        resultado = 'menor'
+      } else {
+        resultado = 'mayor'
+      }
+
+      if (jugada == resultado) {
+        this.mensaje = 'Bien!!';
+      } else {
+        this.mensaje = 'Perdiste!!';
+      }
+
+    }
+  }
+
+  ngOnInit() {
+    this.obtenerTodosLosNaipesAleatorios();
   }
 }

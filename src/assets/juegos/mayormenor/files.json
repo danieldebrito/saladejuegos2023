@@ -181,11 +181,6 @@
             "url": "assets/juegos/mayormenor/asart-naipes-espadas-9-minimalart.png"
         },
         {
-            "nombre": "Joker",
-            "valor": null,
-            "url": "assets/juegos/mayormenor/asart-naipes-joker-secundino-rabon-comodin-minimalart.png"
-        },
-        {
             "nombre": "1 de oros",
             "valor": 1,
             "url": "assets/juegos/mayormenor/asart-naipes-oros-1-minimalart.png"
@@ -244,11 +239,6 @@
             "nombre": "9 de oros",
             "valor": 9,
             "url": "assets/juegos/mayormenor/asart-naipes-oros-9-minimalart.png"
-        },
-        {
-            "nombre": "Dorso",
-            "valor": null,
-            "url": "assets/juegos/mayormenor/asart-naipes-dorso-minimalart.png"
         }
     ]
 }
