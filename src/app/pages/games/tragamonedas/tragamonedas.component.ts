@@ -14,9 +14,10 @@ export class TragamonedasComponent {
   public cantVueltas = 10; // cantidad de giros hasta mostrar el resultado
   public tiempoVuelta = 500; // tiempo en milisegundos de la vuelta antes de mostrar el resultado
 
-  public mensaje = '';
+  public mensaje = 'Apreta el boton y suerte !!';
 
   tirar() {
+    this.mensaje = 'Jugando ...';
     for (let i = 0; i < this.cantCarretes; i++) {
       let j = 0;
 
@@ -24,6 +25,7 @@ export class TragamonedasComponent {
         this.resultados[i] = this.carrete[Math.floor(Math.random() * this.carrete.length)];
 
         if (++j === this.cantVueltas) {
+          this.chequearGanador(this.resultados);
           clearInterval(interval);
         }
 
@@ -31,10 +33,19 @@ export class TragamonedasComponent {
     }
   }
 
-  public chekGanador(resultados: any[]){
-  if( resultados[1]){
+  public chequearGanador(arreglo: any[]): boolean {
+    if (arreglo.length === 0) {
+      return true; // Un arreglo vacío se considera que tiene todos los elementos iguales
+    }
 
-  }
+    for (let i = 1; i < arreglo.length; i++) {
+      if (arreglo[i] !== arreglo[0]) {
+        this.mensaje = 'Perdiste!!';
+        return false;
+      }
+    }
+    this.mensaje = 'Ganaste!!';
+    return true;
   }
 }
 
