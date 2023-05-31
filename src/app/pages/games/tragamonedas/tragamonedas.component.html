@@ -1,0 +1,13 @@
+<div class="container">
+    <h2>Tragamonedas</h2>
+
+    <div class="carretes">
+        <div class="simbolo" *ngFor="let simbolo of carrete">{{ simbolo }}</div>
+    </div>
+
+    <button (click)="tirar()">¡Girar!</button>
+
+    <div class="resultados">
+        <div class="resultado" *ngFor="let resultado of resultados">{{ resultado }}</div>
+    </div>
+</div>
